@@ -13,15 +13,84 @@ if($_SESSION['us_tipo']==1){
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h5 class="modal-title fs-5" id="exampleModalLabel">Cambiar Password</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <div class="text-center">
+            <img id="avatar3"src="../img/avatar3.jpg" class="profile-user-img img-fluid img-circle">
+        </div>
+        <div class="text-center mb-2">
+            <b>
+                <?php
+                    echo $_SESSION['nombre_us'];
+                ?>
+            </b>
+        </div>
+        <div class="alert alert-success text-center" id="update" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se cambio password correctamente</span>
+        </div>
+        <div class="alert alert-danger text-center" id="noupdate" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>El password no es correcto</span>
+        </div>
+        <form id="form-pass">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                </div>
+                <input id="oldpass"type="password" class="form-control" placeholder="Ingresa password actual">
+            </div>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                </div>
+                <input id="newpass"type="text" class="form-control" placeholder="Ingresa password nueva">
+            </div>          
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn bg-gradient-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para cambiar Avatar -->
+<div class="modal fade" id="cambiophoto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-5" id="exampleModalLabel">Cambiar Avatar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+            <img id="avatar1"src="../img/avatar3.jpg" class="profile-user-img img-fluid img-circle">
+        </div>
+        <div class="text-center mb-2">
+            <b>
+                <?php
+                    echo $_SESSION['nombre_us'];
+                ?>
+            </b>
+        </div>
+        <div class="alert alert-success text-center" id="edit" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se cambio Avatar correctamente</span>
+        </div>
+        <div class="alert alert-danger text-center" id="noedit" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>Formato no permitido</span>
+        </div>
+        <form id="form-photo" enctype="multipart/form-data">
+            <div class="input-group mb-3 ml-5 mt-2">
+                <input type="file" name="photo"class="input-group">
+                <input type="hidden" name="funcion" value="cambiar_foto">
+            </div>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn bg-gradient-primary">Guardar</button>
+        </form>
       </div>
     </div>
   </div>
@@ -51,7 +120,10 @@ if($_SESSION['us_tipo']==1){
                         <div class="card card-success card-outline">
                             <div class="card-body box-profile">
                                 <div class="text-center">
-                                    <img src="../img/avatar3.jpg" class="profile-user-img img-fluid img-circle">
+                                    <img id="avatar2"src="../img/avatar3.jpg" class="profile-user-img img-fluid img-circle">
+                                </div>
+                                <div class="text-center mt-1">
+                                    <button type="button" data-bs-toggle="modal" data-bs-target="#cambiophoto" class="btn btn-primary btn-sm">Cambiar Avatar</button>
                                 </div>
                                 <input id="id_usuario" type="hidden" value="<?php echo $_SESSION['usuario']?>">
                                 <h3 id="nombre_us"class="profile-username text-center text-success">Nombre</h3>
