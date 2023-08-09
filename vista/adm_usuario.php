@@ -1,13 +1,56 @@
 <?php
 session_start();
-if($_SESSION['us_tipo']==1){
+if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
     include_once 'layouts/header.php';
 ?>
   <title>Adm | Editar Datos</title>
   <?php
     include_once 'layouts/nav.php';
 ?>
-
+<!-- Modal para eliminar, ascender y descender usuarios -->
+<div class="modal fade" id="confirmar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-5" id="exampleModalLabel">Confirmar Acción</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+            <img id="avatar3"src="../img/avatar3.jpg" class="profile-user-img img-fluid img-circle">
+        </div>
+        <div class="text-center mb-2">
+            <b>
+                <?php
+                    echo $_SESSION['nombre_us'];
+                ?>
+            </b>
+        </div>
+        <span>Necesitamos su password para continuar</span>
+        <div class="alert alert-success text-center" id="confirmado" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se modifico al usuario</span>
+        </div>
+        <div class="alert alert-danger text-center" id="rechazado" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>El password no es correcto</span>
+        </div>
+        <form id="form-confirmar">
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-unlock-alt"></i></span>
+                </div>
+                <input id="oldpass"type="password" class="form-control" placeholder="Ingresa password actual">
+                <input type="hidden" id="id_user">
+                <input type="hidden" id="funcion">
+            </div>      
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn bg-gradient-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Modal para Crear nuevos usuarios -->
 <div class="modal fade" id="crearusuario" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -20,7 +63,13 @@ if($_SESSION['us_tipo']==1){
             </button>
         </div>
         <div class="card-body">
-            <form id="#form-crear">
+          <div class="alert alert-success text-center" id="add" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se agrego correctamente</span>
+          </div>
+          <div class="alert alert-danger text-center" id="noadd" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>El DNI ya existe </span>
+          </div>
+            <form id="form-crear">
                 <div class="form-group">
                     <label for="nombre">Nombres</label>
                     <input id="nombre"type="text" class="form-control"placeholder="Ingrese nombre" required>
@@ -56,7 +105,8 @@ if($_SESSION['us_tipo']==1){
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Gestion Usuarios <button type="button" data-bs-toggle="modal" data-bs-target="#crearusuario"class="btn bg-gradient-primary ml-2">Crear Usuario</button></h1>
+            <h1>Gestion Usuarios <button id="button-crear"type="button" data-bs-toggle="modal" data-bs-target="#crearusuario"class="btn bg-gradient-primary ml-2">Crear Usuario</button></h1>
+            <input type="hidden" id="tipo_usuario" value="<?php echo $_SESSION['us_tipo'] ?>">
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -80,8 +130,10 @@ if($_SESSION['us_tipo']==1){
                     </div>
                 </div>
             </div>
-            <div id="usuarios"class="card-body">
+            <div class="card-body">
+              <div id="usuarios"class="row d-flex align-items-stretch">
 
+              </div>
             </div>
             <div class="card-footer">
 

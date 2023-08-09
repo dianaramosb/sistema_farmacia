@@ -14,6 +14,10 @@ if(!empty($_SESSION['us_tipo'])){
         case 2:
             header('Location:../vista/tec_catalogo.php');
             break;
+        
+        case 3:
+            header('Location:../vista/adm_catalogo.php');
+        break;
     }
 }
 else{
@@ -32,6 +36,9 @@ else{
             case 2:
                 header('Location:../vista/tec_catalogo.php');
                 break;
+            case 3:
+                header('Location:../vista/adm_catalogo.php');
+            break;
         }
     }
     else{

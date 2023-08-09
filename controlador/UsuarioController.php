@@ -3,7 +3,7 @@ include_once '../modelo/Usuario.php';
 $usuario = new Usuario();
 session_start();
 $id_usuario= $_SESSION['usuario'];
-
+//Funciones
 //capturar los datos en el formulario de usuario
 if($_POST['funcion']=='buscar_usuario'){
     $json=array();
@@ -13,7 +13,7 @@ if($_POST['funcion']=='buscar_usuario'){
         $nacimiento = new DateTime($objeto->edad);
         $edad = $nacimiento->diff($fecha_actual);
         $edad_years = $edad->y;
-        $json[]=array(
+        $json[]=array(         
             'nombre'=>$objeto->nombre_us,
             'apellidos'=>$objeto->apellidos_us,
             'edad'=>$edad_years,
@@ -102,6 +102,7 @@ if($_POST['funcion']=='buscar_usuarios_adm'){
         $edad = $nacimiento->diff($fecha_actual);
         $edad_years = $edad->y;
         $json[]=array(
+            'id'=>$objeto->id_usuario,
             'nombre'=>$objeto->nombre_us,
             'apellidos'=>$objeto->apellidos_us,
             'edad'=>$edad_years,
@@ -112,10 +113,41 @@ if($_POST['funcion']=='buscar_usuarios_adm'){
             'correo'=>$objeto->correo_us,
             'sexo'=>$objeto->sexo_us,
             'adicional'=>$objeto->adicional_us,
-            'avatar'=>'../img/'.$objeto->avatar
+            'avatar'=>'../img/'.$objeto->avatar,
+            'tipo_usuario'=>$objeto->us_tipo
         );
     }
     $jsonstring = json_encode($json);
     echo $jsonstring;
 }
+//Crear nuevos usuarios
+if($_POST['funcion']=='crear_usuario'){
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $edad = $_POST['edad'];
+    $dni = $_POST['dni'];
+    $pass = $_POST['pass'];
+    $tipo=2;
+    $avatar='default.jpg';
+    $usuario->crear($nombre,$apellido,$edad,$dni,$pass,$tipo,$avatar);
+}
+//Ascender usuarios
+if($_POST['funcion']=='ascender'){
+    $pass = $_POST['pass'];
+    $id_ascendido = $_POST['id_usuario'];
+    $usuario->ascender($pass,$id_ascendido,$id_usuario);
+}
+//Descender usuarios
+if($_POST['funcion']=='descender'){
+    $pass = $_POST['pass'];
+    $id_descendido = $_POST['id_usuario'];
+    $usuario->descender($pass,$id_descendido,$id_usuario);
+}
+//Borrar usuarios
+if($_POST['funcion']=='borrar_usuario'){
+    $pass = $_POST['pass'];
+    $id_borrado = $_POST['id_usuario'];
+    $usuario->borrar($pass,$id_borrado,$id_usuario);
+}
+
 ?>

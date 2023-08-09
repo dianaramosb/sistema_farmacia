@@ -1,6 +1,6 @@
 <?php
 session_start();
-if($_SESSION['us_tipo']==1){
+if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
     include_once 'layouts/header.php';
 ?>
   <title>Adm | Editar Datos</title>
@@ -137,7 +137,7 @@ if($_SESSION['us_tipo']==1){
                                         </li>
                                         <li class="list-group-item">
                                             <b style="color:#0B7300">Tipo usuario</b>
-                                            <span id="us_tipo"class="float-right badge badge-primary">Administrador</span>
+                                            <span id="us_tipo"class="float-right"></span>
                                         </li>
                                         <button data-bs-toggle="modal" data-bs-target="#cambiocontra" type="button" class="btn btn-block btn-outline-warning btn-sm">Cambiar Password</button>
                                     </ul>
