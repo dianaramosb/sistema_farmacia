@@ -1,11 +1,18 @@
 <?php
 include '../modelo/Laboratorio.php';
 $laboratorio=new Laboratorio();
+
 //Crear nuevo laboratorio
 if($_POST['funcion']=='crear'){
     $nombre = $_POST['nombre_laboratorio'];
     $avatar ='lab-default.jpg';
     $laboratorio->crear($nombre,$avatar);
+}
+//Editar laboratorio
+if($_POST['funcion']=='editar'){
+    $nombre = $_POST['nombre_laboratorio'];
+    $id_editado = $_POST['id_editado'];
+    $laboratorio->editar($nombre,$id_editado);
 }
 //Buscar laboratorio
 if($_POST['funcion']=='buscar'){

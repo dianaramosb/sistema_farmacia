@@ -64,14 +64,18 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
           <div class="alert alert-danger text-center" id="noadd-laboratorio" style='display:none;'>
             <span><i class="fas fa-times m-1"></i>El laboratorio ya existe</span>
           </div>
+          <div class="alert alert-success text-center" id="edit-lab" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se edito correctamente</span>
+          </div>
             <form id="form-crear-laboratorio">
                 <div class="form-group">
                     <label for="nombre-laboratorio">Nombre</label>
                     <input id="nombre-laboratorio"type="text" class="form-control"placeholder="Ingrese nombre" required>
+                    <input type="hidden" id="id_editar_lab">
                 </div>             
         </div>
         <div class="card-footer">
-            <button type="submit"class="btn bg-gradient-primary float-right m-1">Crear</button>
+            <button type="submit"class="btn bg-gradient-primary float-right m-1">Guardar</button>
             <button type="button"data-dismiss="modal"class="btn btn-outline-secondary float-right m-1 ">Cerrar</button>
             </form>
         </div>
@@ -91,20 +95,24 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
             </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id="add" style='display:none;'>
+        <div class="alert alert-success text-center" id="add-tipo" style='display:none;'>
             <span><i class="fas fa-check m-1"></i>Se agrego correctamente</span>
           </div>
-          <div class="alert alert-danger text-center" id="noadd" style='display:none;'>
-            <span><i class="fas fa-times m-1"></i>El DNI ya existe </span>
+          <div class="alert alert-danger text-center" id="noadd-tipo" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>El tipo ya existe</span>
+          </div>
+          <div class="alert alert-success text-center" id="edit-tip" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se edito correctamente</span>
           </div>
             <form id="form-crear-tipo">
                 <div class="form-group">
                     <label for="nombre-tipo">Nombre</label>
                     <input id="nombre-tipo"type="text" class="form-control"placeholder="Ingrese nombre" required>
+                    <input type="hidden" id="id_editar_tip">
                 </div>             
         </div>
         <div class="card-footer">
-            <button type="submit"class="btn bg-gradient-primary float-right m-1">Crear</button>
+            <button type="submit"class="btn bg-gradient-primary float-right m-1">Guardar</button>
             <button type="button"data-dismiss="modal"class="btn btn-outline-secondary float-right m-1 ">Cerrar</button>
             </form>
         </div>
@@ -124,20 +132,24 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
             </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id="add" style='display:none;'>
+        <div class="alert alert-success text-center" id="add-pre" style='display:none;'>
             <span><i class="fas fa-check m-1"></i>Se agrego correctamente</span>
           </div>
-          <div class="alert alert-danger text-center" id="noadd" style='display:none;'>
-            <span><i class="fas fa-times m-1"></i>El DNI ya existe </span>
+          <div class="alert alert-danger text-center" id="noadd-pre" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>La presentacion ya existe</span>
+          </div>
+          <div class="alert alert-success text-center" id="edit-pre" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se edito correctamente</span>
           </div>
             <form id="form-crear-presentacion">
                 <div class="form-group">
                     <label for="nombre-presentacion">Nombre</label>
                     <input id="nombre-presentacion"type="text" class="form-control"placeholder="Ingrese nombre" required>
+                    <input type="hidden" id="id_editar_pre">
                 </div>             
         </div>
         <div class="card-footer">
-            <button type="submit"class="btn bg-gradient-primary float-right m-1">Crear</button>
+            <button type="submit"class="btn bg-gradient-primary float-right m-1">Guardar</button>
             <button type="button"data-dismiss="modal"class="btn btn-outline-secondary float-right m-1 ">Cerrar</button>
             </form>
         </div>
@@ -220,8 +232,23 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-body"></div>
-                                        <div class="card-footer"></div>
+                                        <!-- Tabla donde se muestran los tipos-->
+                                        <div class="card-body p-0 table-responive">
+                                          <table class="table table-hover text-nowrap">
+                                            <thead class="table-success">
+                                              <tr>
+                                                <th>Accion</th>
+                                                <th>Tipos</th>            
+                                              </tr>
+                                            </thead>
+                                            <tbody class="table-active" id="tipos">
+
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                        <div class="card-footer">
+
+                                        </div>
                                     </div>
                                 </div>
                                  <!-- Buscar presentacion-->
@@ -236,8 +263,23 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card-body"></div>
-                                        <div class="card-footer"></div>
+                                        <!-- Tabla donde se muestran las presentaciones-->
+                                        <div class="card-body p-0 table-responive">
+                                          <table class="table table-hover text-nowrap">
+                                            <thead class="table-success">
+                                              <tr>
+                                                <th>Accion</th>
+                                                <th>Presentacion</th>            
+                                              </tr>
+                                            </thead>
+                                            <tbody class="table-active" id="presentaciones">
+
+                                            </tbody>
+                                          </table>
+                                        </div>
+                                        <div class="card-footer">
+
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -264,3 +306,5 @@ else{
 }
 ?>
 <script src="../js/Laboratorio.js"></script>
+<script src="../js/Tipo.js"></script>
+<script src="../js/Presentacion.js"></script>
