@@ -9,7 +9,7 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
 ?>
 
 <!-- Modal para Crear nuevos productos -->
-<div class="modal fade" id="crearproducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="crearproducto" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="card card-success">
@@ -20,10 +20,10 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
             </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id="add" style='display:none;'>
+          <div class="alert alert-success text-center" id="add-prod" style='display:none;'>
             <span><i class="fas fa-check m-1"></i>Se agrego correctamente</span>
           </div>
-          <div class="alert alert-danger text-center" id="noadd" style='display:none;'>
+          <div class="alert alert-danger text-center" id="noadd-prod" style='display:none;'>
             <span><i class="fas fa-times m-1"></i>El producto ya existe </span>
           </div>
             <form id="form-crear-producto">
@@ -45,15 +45,15 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
                 </div>
                 <div class="form-group">
                     <label for="laboratorio">Laboratorios</label>
-                    <select name="laboratorio" id="laboratorio" class="form-control select2"style="width: 100%"></select>
+                    <select name="laboratorio" id="laboratorio" class="form-control select2" style="width: 100%"></select>
                 </div> 
                 <div class="form-group">
                     <label for="tipo">Tipo</label>
-                    <select name="tipo" id="tipo" class="form-control select2"style="width: 100%"></select>
+                    <select name="tipo" id="tipo" class="form-control select2" style="width: 100%"></select>
                 </div> 
                 <div class="form-group">
                     <label for="presentacion">Presentacion</label>
-                    <select name="presentacion" id="presentacion" class="form-control select2"style="width: 100%"></select>
+                    <select name="presentacion" id="presentacion" class="form-control select2" style="width: 100%"></select>
                 </div>   
         </div>
         <div class="card-footer">
@@ -82,7 +82,7 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
       </div>
     </section>
     <section>
-      <!-- Formulario para registrar usuarios -->
+      <!-- card que muestra los datos de los productos -->
       <div class="container-fluid">
         <div class="card card-success">
             <div class="card-header">
