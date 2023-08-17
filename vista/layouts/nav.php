@@ -1,5 +1,7 @@
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<!-- Select2 -->
+<link rel="stylesheet" href="../css/select2.css">
 <!-- Sweetalert2 -->
 <link rel="stylesheet" href="../css/css/sweetalert2.css">
 <!-- Font Awesome -->
@@ -79,13 +81,21 @@
           </li>            
           <li class="nav-header">Almacen</li>
           <li class="nav-item">
+            <a href="adm_producto.php" class="nav-link">
+              <i class="nav-icon fas fa-pills"></i>
+              <p>
+               Gestion producto
+              </p>
+            </a>
+          </li> 
+          <li class="nav-item">
             <a href="adm_atributo.php" class="nav-link">
               <i class="nav-icon fas fa-vials"></i>
               <p>
                Gestion atributo
               </p>
             </a>
-          </li>        
+          </li>            
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

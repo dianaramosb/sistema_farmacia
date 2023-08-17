@@ -63,4 +63,17 @@ if($_POST['funcion']=='borrar'){
     $id=$_POST['id'];
     $laboratorio->borrar($id);
 }
+//Rellenar laboratorio en el select
+if($_POST['funcion']=='rellenar_laboratorios'){
+    $laboratorio->rellenar_laboratorios();
+    $json=array();
+    foreach ($laboratorio->objetos as $objeto){
+        $json[]=array(
+            'id'=>$objeto->id_laboratorio,
+            'nombre'=>$objeto->nombre
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}
 ?>

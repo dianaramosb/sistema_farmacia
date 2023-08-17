@@ -19,5 +19,7 @@
 <script src="../js/adminlte.min.js"></script>
 <!-- Sweetalert2 -->
 <script src="../js/sweetalert2.js"></script>
+<!-- Select2 -->
+<script src="../js/select2.js"></script>
 </body>
 </html>
