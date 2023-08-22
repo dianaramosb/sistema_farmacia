@@ -8,6 +8,45 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
     include_once 'layouts/nav.php';
 ?>
 
+<!-- Modal para cambiar Logo de productos -->
+<div class="modal fade" id="cambiologo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title fs-5" id="exampleModalLabel">Cambiar Logo</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+            <img id="logoactual"src="../img/avatar3.jpg" class="profile-user-img img-fluid img-circle">
+        </div>
+        <div class="text-center mb-2">
+            <b id="nombre_logo">          
+            </b>
+        </div>
+        <div class="alert alert-success text-center" id="edit" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se cambio Logo correctamente</span>
+        </div>
+        <div class="alert alert-danger text-center" id="noedit" style='display:none;'>
+            <span><i class="fas fa-times m-1"></i>Formato no permitido</span>
+        </div>
+        <form id="form-logo" enctype="multipart/form-data">
+            <div class="input-group mb-3 ml-5 mt-2">
+                <input type="file" name="photo"class="input-group">
+                <input type="hidden" name="funcion" id="funcion">
+                <input type="hidden" name="id_logo_prod" id="id_logo_prod">
+                <input type="hidden" name="avatar" id="avatar">
+            </div>        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn bg-gradient-primary">Guardar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal para Crear nuevos productos -->
 <div class="modal fade" id="crearproducto" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -54,7 +93,8 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
                 <div class="form-group">
                     <label for="presentacion">Presentacion</label>
                     <select name="presentacion" id="presentacion" class="form-control select2" style="width: 100%"></select>
-                </div>   
+                </div> 
+                <input type="hidden" id="id_edit_prod">  
         </div>
         <div class="card-footer">
             <button type="submit"class="btn bg-gradient-primary float-right m-1">Guardar</button>
