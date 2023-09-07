@@ -8,7 +8,7 @@ class Producto{
     }
     //Metodo Crear nuevos productos
     function crear($nombre,$concentracion,$adicional,$precio,$laboratorio,$tipo,$presentacion,$avatar){
-        $sql="SELECT id_producto FROM producto WHERE nombre=:nombre and concentracion=:concentracion and adicional=:adicional and prod_lab=:laboratorio and prod_tip=:tipo and prod_present=:presentacion";
+        $sql="SELECT id_producto FROM producto WHERE nombre=:nombre and concentracion=:concentracion and adicional=:adicional and prod_lab=:laboratorio and prod_tip_prod=:tipo and prod_present=:presentacion";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':nombre'=>$nombre,':concentracion'=>$concentracion,':adicional'=>$adicional,':laboratorio'=>$laboratorio,':tipo'=>$tipo,':presentacion'=>$presentacion));
         $this->objetos=$query->fetchall();
@@ -16,26 +16,26 @@ class Producto{
             echo 'noadd';
         }
         else{
-            $sql="INSERT INTO producto(nombre,concentracion,adicional,precio,prod_lab,prod_tip,prod_present,avatar) VALUES (:nombre,:concentracion,:adicional,:precio,:laboratorio,:tipo,:presentacion,:avatar);";
+            $sql="INSERT INTO producto(nombre,concentracion,adicional,precio,prod_lab,prod_tip_prod,prod_present,avatar) VALUES (:nombre,:concentracion,:adicional,:precio,:laboratorio,:tipo,:presentacion,:avatar);";
             $query = $this->acceso->prepare($sql);
             $query->execute(array(':nombre'=>$nombre,':concentracion'=>$concentracion,':adicional'=>$adicional,':laboratorio'=>$laboratorio,':tipo'=>$tipo,':presentacion'=>$presentacion,':precio'=>$precio,':avatar'=>$avatar));
             echo 'add';
         }
     }
     //Metodo Editar nuevos productos
-    function editar($id,$nombre,$concentracion,$adicional,$precio,$laboratorio,$tipo,$presentacion,$avatar){
-        $sql="SELECT id_producto FROM producto WHERE id_producto!=:id and nombre=:nombre and concentracion=:concentracion and adicional=:adicional and prod_lab=:laboratorio and prod_tip=:tipo and prod_present=:presentacion";
+    function editar($id,$nombre,$concentracion,$adicional,$precio,$laboratorio,$tipo,$presentacion){
+        $sql="SELECT id_producto FROM producto WHERE id_producto!=:id and nombre=:nombre and concentracion=:concentracion and adicional=:adicional and prod_lab=:laboratorio and prod_tip_prod=:tipo and prod_present=:presentacion";
         $query = $this->acceso->prepare($sql);
         $query->execute(array(':id'=>$id,':nombre'=>$nombre,':concentracion'=>$concentracion,':adicional'=>$adicional,':laboratorio'=>$laboratorio,':tipo'=>$tipo,':presentacion'=>$presentacion));
         $this->objetos=$query->fetchall();
         if(!empty($this->objetos)){
-            echo 'noadd';
+            echo 'noedit';
         }
         else{
-            $sql="UPDATE producto SET nombre=:nombre, concentracion=:concentracion, adicional=:adicional, prod_lab=:laboratorio, prod_tip=:tipo, prod_present=:presentacion, precio=:precio where id_producto=:id";
+            $sql="UPDATE producto SET nombre=:nombre, concentracion=:concentracion, adicional=:adicional, prod_lab=:laboratorio, prod_tip_prod=:tipo, prod_present=:presentacion, precio=:precio where id_producto=:id";
             $query = $this->acceso->prepare($sql);
-            $query->execute(array(':nombre'=>$nombre,':concentracion'=>$concentracion,':adicional'=>$adicional,':laboratorio'=>$laboratorio,':tipo'=>$tipo,':presentacion'=>$presentacion,':precio'=>$precio,':avatar'=>$avatar));
-            echo 'add';
+            $query->execute(array(':id'=>$id,':nombre'=>$nombre,':concentracion'=>$concentracion,':adicional'=>$adicional,':laboratorio'=>$laboratorio,':tipo'=>$tipo,':presentacion'=>$presentacion,':precio'=>$precio));
+            echo 'edit';
         }
     }
     //Metodo para buscar productos
@@ -69,6 +69,18 @@ class Producto{
         $sql="UPDATE producto SET avatar=:nombre where id_producto=:id";
         $query=$this->acceso->prepare($sql);
         $query->execute(array(':id'=>$id,':nombre'=>$nombre));
+    }
+    //borrar producto
+    function borrar($id){
+        $sql="DELETE FROM producto WHERE id_producto=:id";
+        $query=$this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id));
+        if(!empty($query->execute(array(':id'=>$id)))){
+            echo 'borrado';
+        }
+        else{
+            echo 'noborrado';
+        }
     }
 }
 ?>

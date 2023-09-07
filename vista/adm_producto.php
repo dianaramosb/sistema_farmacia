@@ -3,7 +3,7 @@ session_start();
 if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
     include_once 'layouts/header.php';
 ?>
-  <title>Adm | Editar Datos</title>
+  <title>Adm | Productos</title>
   <?php
     include_once 'layouts/nav.php';
 ?>
@@ -59,11 +59,14 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
             </button>
         </div>
         <div class="card-body">
-          <div class="alert alert-success text-center" id="add-prod" style='display:none;'>
+          <div class="alert alert-success text-center" id="add" style='display:none;'>
             <span><i class="fas fa-check m-1"></i>Se agrego correctamente</span>
           </div>
-          <div class="alert alert-danger text-center" id="noadd-prod" style='display:none;'>
+          <div class="alert alert-danger text-center" id="noadd" style='display:none;'>
             <span><i class="fas fa-times m-1"></i>El producto ya existe </span>
+          </div>
+          <div class="alert alert-success text-center" id="edit_prod" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se edito correctamente </span>
           </div>
             <form id="form-crear-producto">
                 <div class="form-group">

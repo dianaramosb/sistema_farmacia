@@ -67,20 +67,36 @@ $(document).ready(function(){
         else{
             funcion="crear";
         }
-        $.post('../Controlador/ProductoController.php',{funcion,id,nombre,concentracion,adicional,precio,laboratorio,tipo,presentacion},(response)=>{
+        $.post('../Controlador/ProductoController.php',{funcion,id,nombre,concentracion,adicional,precio,laboratorio,tipo,presentacion},(response)=>{ 
+            console.log(response);         
             if(response=='add'){
-                $('#add-prod').hide('slow');
-                $('#add-prod').show(1000);
-                $('#add-prod').hide(2000);
+                $('#add').hide('slow');
+                $('#add').show(1000);
+                $('#add').hide(2000);
                 $('#form-crear-producto').trigger('reset');
+                buscar_producto();
+            }
+            if(response=='edit'){
+                $('#edit_prod').hide('slow');
+                $('#edit_prod').show(1000);
+                $('#edit_prod').hide(2000);
+                $('#form-crear-producto').trigger('reset');
+                buscar_producto();
             }
             if(response=='noadd'){
-                $('#noadd-prod').hide('slow');
-                $('#noadd-prod').show(1000);
-                $('#noadd-prod').hide(2000);
+                $('#noadd').hide('slow');
+                $('#noadd').show(1000);
+                $('#noadd').hide(2000);
+                $('#form-crear-producto').trigger('reset');
+            } 
+            if(response=='noedit'){
+                $('#noadd').hide('slow');
+                $('#noadd').show(1000);
+                $('#noadd').hide(2000);
                 $('#form-crear-producto').trigger('reset');
             }
-            buscar_producto();
+            edit=false;
+                    
         });
         e.preventDefault();
     });
@@ -117,16 +133,16 @@ $(document).ready(function(){
                 </div>
                 <div class="card-footer">
                   <div class="text-right">
-                    <button class="avatar btn btn-sm bg-teal" type="button" data-toggle="modal" data-target="#cambiologo">
+                    <button class="avatar btn btn-sm bg-teal" title="Cambiar imagen de producto" type="button" data-toggle="modal" data-target="#cambiologo">
                       <i class="fas fa-image"></i>
                     </button>
-                    <button class="editar btn btn-sm btn-success" type="button" data-toggle="modal" data-target="#crearproducto">
+                    <button class="editar btn btn-sm btn-success" title="Editar producto" type="button" data-toggle="modal" data-target="#crearproducto">
                       <i class="fas fa-pencil-alt"></i> 
                     </button>
                     <button class="lote btn btn-sm btn-primary">
                       <i class="fas fa-plus-square"></i> 
                     </button>
-                    <button class="borrar btn btn-sm btn-danger">
+                    <button class="borrar btn btn-sm btn-danger" title="Eliminar producto">
                       <i class="fas fa-trash-alt"></i> 
                     </button>
                   </div>
@@ -211,4 +227,61 @@ $(document).ready(function(){
         $('#presentacion').val(presentacion).trigger('change');
         edit=true;     
     });
+
+    //Borrar el producto
+    $(document).on('click','.borrar',(e)=>{
+        funcion="borrar";
+        const elemento = $(this)[0].activeElement.parentElement.parentElement.parentElement.parentElement;
+        const id = $(elemento).attr('prodId');
+        const nombre = $(elemento).attr('prodNombre');
+        const avatar = $(elemento).attr('prodAvatar');
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+              confirmButton: 'btn btn-success',
+              cancelButton: 'btn btn-danger mr-1'
+            },
+            buttonsStyling: false
+          })  
+          swalWithBootstrapButtons.fire({
+            title: 'Desea eliminar producto '+nombre+'?',
+            text: "No podras revertir esto!",
+            imageUrl:''+avatar+'',
+            imageWidth: 100,
+            imageHeight: 100,
+            showCancelButton: true,
+            confirmButtonText: 'Si, borra esto!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+          }).then((result) => {
+            if (result.isConfirmed) {
+                $.post('../controlador/ProductoController.php',{id,funcion},(response)=>{
+                    console.log(response);
+                    edit=false;
+                    if(response=='borrado'){
+                        swalWithBootstrapButtons.fire(
+                            'Borrado!',
+                            'El producto '+nombre+' fue borrado',
+                            'success'
+                        )
+                        buscar_producto();
+                    }
+                    else{
+                        swalWithBootstrapButtons.fire(
+                            'No se pudo borrar!',
+                            'El producto '+nombre+' no fue borrado porque esta siendo utilizado en un lote',
+                            'error'
+                        )
+                    }
+                })          
+            } 
+            else if (result.dismiss === Swal.DismissReason.cancel) 
+            {
+              swalWithBootstrapButtons.fire(
+                'Cancelado',
+                'El producto '+nombre+' no fue borrado',
+                'error'
+              )
+            }
+        })
+    }) 
 }) 
