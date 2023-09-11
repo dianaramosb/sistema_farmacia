@@ -40,6 +40,38 @@ class Proveedor{
             return $this->objetos;
         }
     }
-
+    //Cambiar logo del proveedor
+    function cambiar_logo($id,$nombre){
+        $sql="UPDATE proveedor SET avatar=:nombre where id_proveedor=:id";
+        $query=$this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id,':nombre'=>$nombre));
+    }
+    //Borrar proveedor
+    function borrar($id){
+        $sql="DELETE FROM proveedor  where id_proveedor=:id";
+        $query=$this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id));
+        if(!empty($query->execute(array(':id'=>$id)))){
+            echo 'borrado';
+        }
+        else{
+            echo 'noborrado';
+        }
+    }
+    function editar($id,$nombre,$telefono,$correo,$direccion){        
+        $sql="SELECT id_proveedor FROM proveedor WHERE id_proveedor!=:id and nombre=:nombre";
+        $query = $this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id,':nombre'=>$nombre));
+        $this->objetos=$query->fetchall();
+        if(!empty($this->objetos)){
+            echo 'noedit';
+        }
+        else{
+            $sql="UPDATE proveedor SET nombre=:nombre, telefono=:telefono, direccion=:direccion, correo=:correo where id_proveedor=:id";
+            $query = $this->acceso->prepare($sql);
+            $query->execute(array(':id'=>$id,':nombre'=>$nombre,':telefono'=>$telefono,':direccion'=>$direccion,':correo'=>$correo));
+            echo 'edit';
+            }       
+        }
 }
 ?>
