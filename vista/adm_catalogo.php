@@ -13,12 +13,12 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Titulo del contenido</h1>
+            <h1>Catalogo</h1>
           </div>
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Blank Page</li>
+              <li class="breadcrumb-item active">Catalogo</li>
             </ol>
           </div>
         </div>

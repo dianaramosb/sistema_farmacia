@@ -58,6 +58,7 @@ class Proveedor{
             echo 'noborrado';
         }
     }
+    //Editar proveedor
     function editar($id,$nombre,$telefono,$correo,$direccion){        
         $sql="SELECT id_proveedor FROM proveedor WHERE id_proveedor!=:id and nombre=:nombre";
         $query = $this->acceso->prepare($sql);
@@ -71,7 +72,15 @@ class Proveedor{
             $query = $this->acceso->prepare($sql);
             $query->execute(array(':id'=>$id,':nombre'=>$nombre,':telefono'=>$telefono,':direccion'=>$direccion,':correo'=>$correo));
             echo 'edit';
-            }       
-        }
+        }       
+    }
+    //Mostrar proveedor en el formulario de agregar nuevo lote
+    function rellenar_proveedores(){
+        $sql="SELECT * FROM proveedor order by nombre asc";
+        $query = $this->acceso->prepare($sql);
+        $query->execute();
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
+    }   
 }
 ?>

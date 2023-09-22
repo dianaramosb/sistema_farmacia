@@ -73,4 +73,17 @@ if($_POST['funcion']=='borrar'){
     $id=$_POST['id'];
     $proveedor->borrar($id);
 }
+//Rellenar proveedor en el select de agregar lotes
+if($_POST['funcion']=='rellenar_proveedores'){
+    $proveedor->rellenar_proveedores();
+    $json=array();
+    foreach ($proveedor->objetos as $objeto){
+        $json[]=array(
+            'id'=>$objeto->id_proveedor,
+            'nombre'=>$objeto->nombre
+        );
+    }
+    $jsonstring = json_encode($json);
+    echo $jsonstring;
+}
 ?>

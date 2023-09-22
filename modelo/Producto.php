@@ -82,5 +82,13 @@ class Producto{
             echo 'noborrado';
         }
     }
+    //obtener los datos del stock 
+    function obtener_stock($id){
+        $sql="SELECT SUM(stock) as total FROM lote where lote_id_prod=:id";
+        $query=$this->acceso->prepare($sql);
+        $query->execute(array(':id'=>$id));
+        $this->objetos=$query->fetchall();
+        return $this->objetos;
+    }
 }
 ?>

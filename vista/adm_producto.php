@@ -8,6 +8,49 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
     include_once 'layouts/nav.php';
 ?>
 
+<!-- Modal para Crear nuevos lotes -->
+<div class="modal fade" id="crearlote" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="card card-success">
+        <div class="card-header">
+            <h3 class="card-title">Crear Lote</h3>
+            <button data-dismiss="modal" aria-label="Close"class="close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="card-body">
+          <div class="alert alert-success text-center" id="add-lote" style='display:none;'>
+            <span><i class="fas fa-check m-1"></i>Se agrego correctamente</span>
+          </div>
+            <form id="form-crear-lote">
+            <div class="form-group">
+                    <label for="nombre_producto_lote">Producto:</label>
+                    <label id="nombre_producto_lote"></label>               
+                </div>
+            <div class="form-group">
+                    <label for="proveedor">Proveedor</label>
+                    <select name="proveedor" id="proveedor" class="form-control select2" style="width: 100%"></select>
+                </div> 
+                <div class="form-group">
+                    <label for="stock">Stock</label>
+                    <input id="stock"type="number" class="form-control"placeholder="Ingrese stock" required>
+                </div>
+                <div class="form-group">
+                    <label for="vencimiento">Vencimiento</label>
+                    <input id="vencimiento"type="date" class="form-control"placeholder="Ingrese vencimiento">
+                </div>
+                <input type="hidden" id="id_lote_prod">  
+        </div>
+        <div class="card-footer">
+            <button type="submit"class="btn bg-gradient-primary float-right m-1">Guardar</button>
+            <button type="button"data-dismiss="modal"class="btn btn-outline-secondary float-right m-1 ">Cerrar</button>
+            </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 <!-- Modal para cambiar Logo de productos -->
 <div class="modal fade" id="cambiologo" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
