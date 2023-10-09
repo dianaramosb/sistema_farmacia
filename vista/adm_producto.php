@@ -167,8 +167,8 @@ if($_SESSION['us_tipo']==1||$_SESSION['us_tipo']==3){
         </div>
       </div>
     </section>
+    <!-- card que muestra los datos de los productos -->
     <section>
-      <!-- card que muestra los datos de los productos -->
       <div class="container-fluid">
         <div class="card card-success">
             <div class="card-header">

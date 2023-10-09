@@ -1,0 +1,21 @@
+.carro * {
+    position: relative;
+}
+@media screen and(max-width: 900px) {
+    .carro{
+        display: block;
+        width: 250px !important;
+        height: auto;
+    }
+    .carro thead{
+        display: none;
+    }
+    .carro > *, .carro tr, .carro td{
+        display: block;
+    }
+    .carro tbody tr td:nth-child(1):before{
+        content: "codigo";
+        font-weight: bold;
+        color:black
+    }
+}
