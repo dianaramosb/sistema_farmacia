@@ -76,9 +76,13 @@ $(document).ready(function(){
          EliminarLS();
          contar_productos();   
     })
-    //Evento procesar compra
+    //Evento procesar pedido
     $(document).on('click','#procesar-pedido',(e)=>{
         Procesar_pedido();
+    })
+    //Evento procesar compra
+    $(document).on('click','#procesar-compra',(e)=>{
+        Procesar_compra();
     })
     //Agregamos el Local Storage que permitira guardar datos en el navegador
     function RecuperarLS() {
@@ -233,7 +237,7 @@ $(document).ready(function(){
         });
         pago=$('#pago').val();
         descuento=$('#descuento').val();
-
+        
         total=total-descuento;
         vuelto=pago-total;
         total_sin_descuento=total.toFixed(2);
@@ -245,5 +249,69 @@ $(document).ready(function(){
         $('#total').html(total.toFixed(2)); 
         $('#vuelto').html(vuelto.toFixed(2));   
     }
-
+     // Funcion procesar compra
+     function Procesar_compra(){
+        let nombre,dni;
+        nombre=$('#cliente').val();
+        dni=$('#dni').val();
+        if(RecuperarLS().length == 0){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'No hay producto, seleccione algunos!',
+            }).then(function(){
+                location.href = '../vista/adm_catalogo.php'
+            })
+        }
+        else if(nombre==''){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Necesitamos un nombre de cliente!',
+            })
+        }
+        else{
+            verificar_stock().then(error=>{
+               if(error==0){
+                Registrar_compra(nombre,dni);
+                Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Se realizo la compra',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+               }
+               else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Hay conflicto con el stock de algun producto!',
+                })
+               }
+            });        
+        }       
+    }
+    //Verificar el stock
+        async function verificar_stock() {
+        let productos;       
+        funcion="verificar_stock";
+        productos=RecuperarLS();
+        const response = await fetch('../controlador/ProductoController.php',{
+            method:'POST',
+            headers:{'content-Type':'application/x-www-form-urlencoded'},
+            body:'funcion='+funcion+'&&productos='+JSON.stringify(productos)
+        }) 
+        let error = await response.text();     
+        return error;
+    }
+    function Registrar_compra(nombre,dni){
+        funcion='registrar_compra';
+        let total=$('#total').get(0).textContent;
+        let productos=RecuperarLS();
+        let json = JSON.stringify(productos);
+        $.post('../controlador/CompraController.php',{funcion,total,nombre,dni,json},(response)=>{
+            console.log(response);
+        })
+    }
 })
