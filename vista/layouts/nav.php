@@ -1,5 +1,6 @@
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+<link rel="stylesheet" href="../css/compra.css">
 <link rel="stylesheet" href="../css/main.css">
 <!-- Select2 -->
 <link rel="stylesheet" href="../css/select2.css">
@@ -29,8 +30,8 @@
         <a href="#" class="nav-link">Contact</a>
       </li>
       <li class="nav-item dropdown" id="cat-carrito" style="display:none">
-          <img src="../img/carrito.png" class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
-            
+          <img src="../img/carrito.png" class="imagen-carrito nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+            <span id="contador" class="contador badge badge-danger"></span>
           </img>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <table class="carro table table-hover text-nowrap p-0">
@@ -48,7 +49,7 @@
                 </tbody>
               </thead>
             </table>
-            <a href="#" class="btn btn-danger btn-block">Procesar Compra</a>
+            <a href="#" id="procesar-pedido" class="btn btn-danger btn-block">Procesar Compra</a>
             <a href="#" id="vaciar-carrito" class="btn btn-primary btn-block">Vaciar Carrito</a>
           </div>
         </li>
